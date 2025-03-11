@@ -12,12 +12,12 @@ import {
 export class UsersController {
   @Get() // GET /users
   findAll() {
-    return 'This action returns all users'
+    return []
   }
 
-  @Get(':id') // GET /users/42
-  findOne() {
-    return 'This action returns a user'
+  @Get(':id') // GET /users/1
+  findOne(@Param('id') id: string) {
+    return { id }
   }
 
   @Post() // POST /users
@@ -25,12 +25,12 @@ export class UsersController {
     return user
   }
 
-  @Patch(':id') // PATCH /users/42
+  @Patch(':id') // PATCH /users/1
   update(@Param('id') id: string, @Body() userUpdate: object) {
     return { id, ...userUpdate }
   }
 
-  @Delete(':id') // DELETE /users/42
+  @Delete(':id') // DELETE /users/1
   delete(@Param('id') id: string) {
     return { id }
   }
