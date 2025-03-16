@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { BtnPrimary } from "@components/ui/btn/BtnPrimary"
 import { LoadingSpinner } from "@components/ui/LoadingSpinner"
+import { NotebookPen } from "lucide-react"
 import Link from "next/link"
 
 export default function Page() {
@@ -35,7 +36,7 @@ export default function Page() {
 
   return (
     <div className="p-12 bg-grey rounded-[5px] flex flex-col items-center max-w-[320px] text-white">
-      {/* <Icon name="lucide:notebook-pen" className="!w-[40px] !h-[40px] mb-[1rem] text-primary fill-current" /> */}
+      <NotebookPen className="!w-[40px] !h-[40px] mb-[1rem] text-primary" />
       <h1 className="text-center font-title mb-1 font-bold">NuxtTicket</h1>
       <h2 className="text-center font-title mb-8">Create your account</h2>
       <form className="w-full mb-4">

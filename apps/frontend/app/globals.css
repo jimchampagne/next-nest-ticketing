@@ -10,8 +10,8 @@
   --font-title: 'Raleway', sans-serif;
   --font-body: 'Poppins', sans-serif;
   --color-*: initial;
-  --color-dark: rgb(0, 0 ,0);
-  --color-grey: rgb(22, 24, 25);
+  --color-dark: rgb(11, 11, 11);
+  --color-grey: rgb(35, 35, 35);
   --color-primary: rgb(238, 119, 0);
   --color-secondary: rgb(238, 119, 0);
   --color-white: #f9f5ff;
