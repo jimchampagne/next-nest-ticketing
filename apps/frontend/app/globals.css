@@ -60,6 +60,19 @@ h3 {
   @apply text-red text-sm mb-4 text-center;
 }
 
+/* Loading Spinner */
+.spinner {
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+/* Scrollbar Styles */
+
 /* width */
 ::-webkit-scrollbar {
   @apply w-[10px] h-[10px];
