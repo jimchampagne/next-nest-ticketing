@@ -5,22 +5,78 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  /* Main Variables */
+  --font-title: 'Raleway', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+  --color-*: initial;
+  --color-dark: rgb(0, 0 ,0);
+  --color-grey: rgb(22, 24, 25);
+  --color-primary: rgb(238, 119, 0);
+  --color-secondary: rgb(238, 119, 0);
+  --color-white: #f9f5ff;
+  --color-red: #ff0000;
+  --color-yellow: #ffd700;
+  --color-transparent: transparent;
+
+  /* Gradient Colors */
+  --color-grad-grey-1: rgb(238, 119, 0);
+  --color-grad-grey-2: rgb(238, 119, 0);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply font-body bg-dark text-white;
 }
+
+a {
+  @apply text-primary hover:text-white transition ease-in-out duration-250;
+}
+
+h1 {
+  @apply text-2xl;
+}
+
+h2 {
+  @apply text-xl;
+}
+
+h3 {
+  @apply text-lg;
+}
+
+.form-group {
+  @apply flex flex-1 flex-col w-full;
+
+  input {
+    @apply p-2 border border-primary bg-white text-dark rounded-lg text-[12px] focus:outline-none focus:bg-white;
+  }
+}
+
+.error-message {
+  @apply text-red text-sm mb-4 text-center;
+}
+
+/* width */
+::-webkit-scrollbar {
+  @apply w-[10px] h-[10px];
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-grey rounded-[10px] my-[0.2rem];
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/70 rounded-[10px];
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/100;
+}
+
