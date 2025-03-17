@@ -14,7 +14,7 @@ import { Prisma } from '@prisma/client'
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
+  @Post('register')
   create(@Body() createUserDto: Prisma.UserCreateInput) {
     return this.usersService.create(createUserDto)
   }
