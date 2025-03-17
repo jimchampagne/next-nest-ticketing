@@ -1,12 +1,10 @@
-interface ProjectType {
+export interface TicketType {
   id: number
-  user_id: number
+  board_id: number
   title: string
   description: string
-  start_date: Date
-  end_date: Date
   status: string
+  priority: number
   created_at: Date
   updated_at: Date
-  boards: BoardType[]
 }

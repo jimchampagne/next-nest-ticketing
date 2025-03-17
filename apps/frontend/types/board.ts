@@ -1,4 +1,6 @@
-interface BoardType {
+import { TicketType } from '@custom-types/ticket'
+
+export interface BoardType {
   id: number
   title: string
   project_id: number

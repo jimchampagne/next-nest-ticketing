@@ -1,4 +1,5 @@
 import { Board } from "@components/dashboard/Board"
+import { ProjectType } from "@custom-types/project"
 import { Boxes } from "lucide-react"
 
 export function Project({

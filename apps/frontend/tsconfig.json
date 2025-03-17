@@ -17,7 +17,7 @@
     "paths": {
       "@/*": ["*"],
       "@components/*": ["components/*"],
-      "@types/*": ["types/*", "types/*.d.ts"],
+      "@custom-types/*": ["types/*", "types/*.d.ts"],
       "@hooks/*": ["hooks/*"],
     },
     "plugins": [

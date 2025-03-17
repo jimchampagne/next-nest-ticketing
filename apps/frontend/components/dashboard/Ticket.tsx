@@ -1,3 +1,4 @@
+import { TicketType } from "@custom-types/ticket"
 import { GitPullRequest, CircleDashed, CircleX } from "lucide-react"
 
 export function Ticket({
