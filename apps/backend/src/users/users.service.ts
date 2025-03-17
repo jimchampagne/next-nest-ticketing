@@ -1,59 +1,30 @@
 import { Injectable } from '@nestjs/common'
-import { CreateUserDto } from './dto/create-user.dto'
-import { UpdateUserDto } from './dto/update-user.dto'
-import { NotFoundException } from '@nestjs/common'
+import { Prisma } from '@prisma/client'
+import { DatabaseService } from 'src/database/database.service'
 
 @Injectable()
 export class UsersService {
-  private users = [
-    //id name email role
-    { id: 1, name: 'Alice', email: 'alice@test.com', role: 'ADMIN' },
-    { id: 1, name: 'Jim', email: 'jim@test.com', role: 'ADMIN' },
-    { id: 1, name: 'Enid', email: 'enid@test.com', role: 'ADMIN' },
-    { id: 1, name: 'Walter', email: 'Walter@test.com', role: 'ADMIN' },
-  ]
-
-  findAll(role?: 'INTERN' | 'ENGINEER' | 'ADMIN') {
-    if (role) {
-      const rolesArray = this.users.filter((user) => user.role === role)
-      if (!rolesArray.length) {
-        throw new NotFoundException(`Users with role ${role} not found`)
-      }
-      return rolesArray
-    }
-    return this.users
+  constructor(private readonly databaseService: DatabaseService) {}
+  async create(createUserDto: Prisma.UserCreateInput) {
+    return this.databaseService.user.create({ data: createUserDto })
   }
 
-  findOne(id: number) {
-    const user = this.users.find((user) => user.id === id)
-    if (!user) {
-      throw new NotFoundException(`User with id ${id} not found`)
-    }
-    return user
+  async findAll() {
+    return this.databaseService.user.findMany()
   }
 
-  create(user: CreateUserDto) {
-    const usersByHighestId = this.users.sort((a, b) => b.id - a.id)
-    const highestId = usersByHighestId[0].id
-    const newUser = { id: highestId + 1, ...user }
-    this.users.push(newUser)
-    return newUser
+  async findOne(id: number) {
+    return this.databaseService.user.findUnique({ where: { id } })
   }
 
-  update(id: number, updatedUser: UpdateUserDto) {
-    this.users = this.users.map((user) => {
-      if (user.id === id) {
-        return { ...user, ...updatedUser }
-      }
-      return user
+  async update(id: number, updateUserDto: Prisma.UserUpdateInput) {
+    return this.databaseService.user.update({
+      where: { id },
+      data: updateUserDto,
     })
-
-    return this.findOne(id)
   }
 
-  delete(id: number) {
-    const removedUser = this.findOne(id)
-    this.users = this.users.filter((user) => user.id !== id)
-    return removedUser
+  async remove(id: number) {
+    return this.databaseService.user.delete({ where: { id } })
   }
 }

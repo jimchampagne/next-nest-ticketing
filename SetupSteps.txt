@@ -1,12 +1,17 @@
-touch .gitignore
+Create .gitignore
 
+Add the following:
 node_modules
 dist
 build
 .env
 
+SETUP BACKEND
+-------------
 nest new backend --strict --skip-git --package-manager=pnpm
-cd..
+
+SETUP FRONTEND
+--------------
 npx create-next-app@latest
 
 ✔ What is your project named? … frontend
@@ -18,10 +23,14 @@ npx create-next-app@latest
 ✔ Would you like to use Turbopack for `next dev`? … Yes
 ✔ Would you like to customize the import alias (`@/*` by default)? … No
 
+MONOREPO SETUP
+--------------
 cd root
 make directory /apps
 move /frontend and /backend into /apps
 
+BUN AS MAIN PACKAGE MANAGER
+---------------------------
 go to apps/backend
 rm package-lock.json
 rm -rf node_modules
