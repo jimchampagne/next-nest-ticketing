@@ -6,4 +6,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api')
   await app.listen(process.env.PORT ?? 8000, '0.0.0.0')
 }
-bootstrap()
+bootstrap().catch((error) => {
+  console.error('Error starting server:', error)
+  process.exit(1)
+})
