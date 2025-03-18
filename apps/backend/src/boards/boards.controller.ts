@@ -6,14 +6,17 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common'
 import { BoardsService } from '@boards/boards.service'
 import { Prisma } from '@prisma/client'
+import { AccessTokenGuard } from '@/common/guards/accessToken.guard'
 
 @Controller('boards')
 export class BoardsController {
   constructor(private readonly boardsService: BoardsService) {}
 
+  @UseGuards(AccessTokenGuard)
   @Post()
   create(@Body() createBoardDto: Prisma.BoardCreateInput) {
     return this.boardsService.create(createBoardDto)
@@ -29,6 +32,7 @@ export class BoardsController {
     return this.boardsService.findOne(+id)
   }
 
+  @UseGuards(AccessTokenGuard)
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -37,6 +41,7 @@ export class BoardsController {
     return this.boardsService.update(+id, updateBoardDto)
   }
 
+  @UseGuards(AccessTokenGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.boardsService.remove(+id)

@@ -6,14 +6,17 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common'
 import { ProjectsService } from '@projects/projects.service'
 import { Prisma } from '@prisma/client'
+import { AccessTokenGuard } from '@/common/guards/accessToken.guard'
 
 @Controller('projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
+  @UseGuards(AccessTokenGuard)
   @Post()
   create(@Body() createProjectDto: Prisma.ProjectCreateInput) {
     return this.projectsService.create(createProjectDto)
@@ -29,6 +32,7 @@ export class ProjectsController {
     return this.projectsService.findOne(+id)
   }
 
+  @UseGuards(AccessTokenGuard)
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -37,6 +41,7 @@ export class ProjectsController {
     return this.projectsService.update(+id, updateProjectDto)
   }
 
+  @UseGuards(AccessTokenGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.projectsService.remove(+id)

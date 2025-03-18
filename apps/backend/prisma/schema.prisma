@@ -20,6 +20,8 @@ model User {
   // Default fields
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  // Auth
+  refreshToken String?
   // Relation fields
   projects  Project[]
 }

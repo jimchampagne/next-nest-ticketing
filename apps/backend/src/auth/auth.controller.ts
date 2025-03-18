@@ -1,29 +1,35 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Request,
-} from '@nestjs/common'
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common'
 import { AuthService } from '@auth/auth.service'
-import { AuthSignIn, AuthenticatedRequest } from '@auth/dto/auth.dto'
-import { Public } from '@auth/auth.decorator'
+import { AuthenticatedRequest, AuthLoginDto } from '@auth/dto/auth.dto'
+import { Prisma } from '@prisma/client'
+import { AccessTokenGuard } from '@/common/guards/accessToken.guard'
+import { RefreshTokenGuard } from '@/common/guards/refreshToken.guard'
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Public()
-  @HttpCode(HttpStatus.OK)
-  @Post('login')
-  login(@Body() input: AuthSignIn) {
-    return this.authService.authenticate(input)
+  @Post('register')
+  signup(@Body() createUserDto: Prisma.UserCreateInput) {
+    return this.authService.register(createUserDto)
   }
 
-  @Get('me')
-  getProfile(@Request() request: AuthenticatedRequest) {
-    return request.user
+  @Post('login')
+  signin(@Body() data: AuthLoginDto) {
+    return this.authService.login(data)
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Get('logout')
+  async logout(@Req() req: AuthenticatedRequest) {
+    await this.authService.logout(req.user['sub'])
+  }
+
+  @UseGuards(RefreshTokenGuard)
+  @Get('refresh')
+  refreshTokens(@Req() req: AuthenticatedRequest) {
+    const userId = req.user['sub']
+    const refreshToken = req.user['refreshToken']
+    return this.authService.refreshTokens(userId, refreshToken)
   }
 }

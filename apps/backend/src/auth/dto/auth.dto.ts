@@ -1,20 +1,19 @@
-export class AuthSignIn {
+export class AuthRegisterDto {
+  name: string
   email: string
   password: string
+  refreshToken: string
 }
 
-export class AuthValidateResult {
-  userId: number
+export class AuthLoginDto {
   email: string
-}
-
-export class AuthLoginResult {
-  accessToken: string
+  password: string
 }
 
 export class AuthJwtPayload {
   sub: number
   email: string
+  refreshToken: string
 }
 
 export interface AuthenticatedRequest extends Request {

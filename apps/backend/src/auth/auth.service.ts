@@ -1,38 +1,120 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common'
 import {
-  AuthSignIn,
-  AuthValidateResult,
-  AuthLoginResult,
-} from '@auth/dto/auth.dto'
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common'
+import { AuthLoginDto } from '@auth/dto/auth.dto'
 import { UsersService } from '@users/users.service'
 import { JwtService } from '@nestjs/jwt'
+import { ConfigService } from '@nestjs/config'
+import * as argon2 from 'argon2'
+import { Prisma } from '@prisma/client'
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
+    private configService: ConfigService,
   ) {}
 
-  async authenticate(input: AuthSignIn): Promise<AuthLoginResult | null> {
-    const user = await this.validateUser(input)
-    if (!user) {
-      throw new UnauthorizedException()
+  // REGISTERING A USER
+  async register(registerDto: Prisma.UserCreateInput): Promise<any> {
+    const userExists = await this.usersService.findByEmail(registerDto.email)
+    if (userExists) {
+      throw new BadRequestException('User already exists')
     }
-    const payload = { sub: user.userId, email: user.email }
+
+    const hash = await this.hashData(registerDto.password)
+    const newUser = await this.usersService.create({
+      ...registerDto,
+      password: hash,
+    })
+
+    const tokens = await this.getTokens(newUser.id, newUser.email)
+    await this.updateRefreshToken(newUser.id, tokens.refreshToken)
+    return tokens
+  }
+
+  // LOGGIN IN A USER
+  async login(loginDto: AuthLoginDto) {
+    const user = await this.usersService.findByEmail(loginDto.email)
+    if (!user) throw new BadRequestException('User does not exist')
+
+    const passwordMatches = await argon2.verify(
+      user.password,
+      loginDto.password,
+    )
+    if (!passwordMatches) throw new BadRequestException('Password is incorrect')
+
+    const tokens = await this.getTokens(user.id, user.email)
+    await this.updateRefreshToken(user.id, tokens.refreshToken)
+
+    return tokens
+  }
+
+  // LOGGING OUT A USER
+  async logout(userId: number) {
+    return this.usersService.update(userId, { refreshToken: null })
+  }
+
+  hashData(data: string) {
+    return argon2.hash(data)
+  }
+
+  // UPDATE REFRESH TOKEN
+  async updateRefreshToken(userId: number, refreshToken: string) {
+    const hashedRefreshToken = await this.hashData(refreshToken)
+    await this.usersService.update(userId, {
+      refreshToken: hashedRefreshToken,
+    })
+  }
+
+  // GET TOKENS
+  async getTokens(userId: number, email: string) {
+    const [accessToken, refreshToken] = await Promise.all([
+      this.jwtService.signAsync(
+        {
+          sub: userId,
+          email,
+        },
+        {
+          secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
+          expiresIn: '15m',
+        },
+      ),
+      this.jwtService.signAsync(
+        {
+          sub: userId,
+          email,
+        },
+        {
+          secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+          expiresIn: '7d',
+        },
+      ),
+    ])
+
     return {
-      accessToken: await this.jwtService.signAsync(payload),
+      accessToken,
+      refreshToken,
     }
   }
 
-  async validateUser(input: AuthSignIn): Promise<AuthValidateResult | null> {
-    const user = await this.usersService.findByEmail(input.email)
-    if (user && user.password === input.password) {
-      return {
-        userId: user.id,
-        email: user.email,
-      }
-    }
-    return null
+  async refreshTokens(userId: number, refreshToken: string) {
+    const user = await this.usersService.findOne(userId)
+
+    if (!user || !user.refreshToken)
+      throw new ForbiddenException('Access Denied')
+
+    const refreshTokenMatches = await argon2.verify(
+      user.refreshToken as string,
+      refreshToken,
+    )
+
+    if (!refreshTokenMatches) throw new ForbiddenException('Access Denied')
+    const tokens = await this.getTokens(user.id, user.email)
+    await this.updateRefreshToken(user.id, tokens.refreshToken)
+    return tokens
   }
 }
