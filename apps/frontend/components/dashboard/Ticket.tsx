@@ -1,5 +1,5 @@
-import { TicketType } from "@custom-types/ticket"
-import { GitPullRequest, CircleDashed, CircleX } from "lucide-react"
+import { TicketType } from '@custom-types/ticket'
+import { GitPullRequest, CircleDashed, CircleX } from 'lucide-react'
 
 export function Ticket({
   className,
@@ -17,19 +17,19 @@ export function Ticket({
         >
           <div className="flex items-start justify-between mb-2 gap-4">
             <p className="font-semibold text-[18px]">{ticket.title}</p>
-            {ticket.status === "open" && (
+            {ticket.status === 'open' && (
               <GitPullRequest
                 name="lucide:git-pull-request"
                 className="!h-[24px] !w-[24px] text-primary group-hover/ticket:text-dark"
               />
             )}
-            {ticket.status === "in_progress" && (
+            {ticket.status === 'in_progress' && (
               <CircleDashed
                 name="lucide:circle-dashed"
                 className="!h-[24px] !w-[24px] text-yellow group-hover/ticket:text-yellow"
               />
             )}
-            {ticket.status === "closed" && (
+            {ticket.status === 'closed' && (
               <CircleX
                 name="lucide:circle-x"
                 className="!h-[24px] !w-[24px] text-red group-hover/ticket:text-red"

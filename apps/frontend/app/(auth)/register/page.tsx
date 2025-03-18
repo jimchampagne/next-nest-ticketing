@@ -1,18 +1,18 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { BtnPrimary } from "@components/ui/btn/BtnPrimary"
-import { LoadingSpinner } from "@components/ui/LoadingSpinner"
-import { NotebookPen } from "lucide-react"
-import Link from "next/link"
+import { useState } from 'react'
+import { BtnPrimary } from '@components/ui/btn/BtnPrimary'
+import { LoadingSpinner } from '@components/ui/LoadingSpinner'
+import { NotebookPen } from 'lucide-react'
+import Link from 'next/link'
 
 export default function Page() {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
+  const [error, setError] = useState('')
 
   function changeName(e: React.ChangeEvent<HTMLInputElement>) {
     setName(e.target.value)
@@ -84,7 +84,7 @@ export default function Page() {
           {loading ? <LoadingSpinner is-small /> : <p>Register</p>}
         </BtnPrimary>
       </form>
-      { error ? <div className="error-message">{ error }</div> : null }
+      {error ? <div className="error-message">{error}</div> : null}
       <div className="mt-4 text-[12px]">
         Already have an account? <Link href="/login">Login here</Link>
       </div>

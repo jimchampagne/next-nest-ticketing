@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -92,4 +92,3 @@ h3 {
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-primary/100;
 }
-

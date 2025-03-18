@@ -1,5 +1,5 @@
-import { Ticket } from "@components/dashboard/Ticket"
-import { BoardType } from "@custom-types/board"
+import { Ticket } from '@components/dashboard/Ticket'
+import { BoardType } from '@custom-types/board'
 
 export function Board({
   className,

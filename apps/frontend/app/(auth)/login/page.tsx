@@ -1,16 +1,16 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { BtnPrimary } from "@components/ui/btn/BtnPrimary"
-import { LoadingSpinner } from "@components/ui/LoadingSpinner"
-import { TicketCheck } from "lucide-react"
-import Link from "next/link"
+import { useState } from 'react'
+import { BtnPrimary } from '@components/ui/btn/BtnPrimary'
+import { LoadingSpinner } from '@components/ui/LoadingSpinner'
+import { TicketCheck } from 'lucide-react'
+import Link from 'next/link'
 
 export default function Page() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
+  const [error, setError] = useState('')
 
   function changeEmail(e: React.ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value)

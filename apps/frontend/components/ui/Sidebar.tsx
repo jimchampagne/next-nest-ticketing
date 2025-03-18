@@ -1,6 +1,6 @@
-import Link from "next/link"
-import { TicketCheck } from "lucide-react"
-import { SidebarLink } from "@components/ui/SidebarLink"
+import Link from 'next/link'
+import { TicketCheck } from 'lucide-react'
+import { SidebarLink } from '@components/ui/SidebarLink'
 
 export function Sidebar({
   className,
@@ -8,7 +8,9 @@ export function Sidebar({
   className?: string
 }>) {
   return (
-    <div className={`${className} min-w-[180px] max-w-[180px] border-r-[1px] border-solid border-primary/50 px-1`}>
+    <div
+      className={`${className} min-w-[180px] max-w-[180px] border-r-[1px] border-solid border-primary/50 px-1`}
+    >
       <div className="mb-[24px] h-14 flex items-center">
         <Link
           href="/dashboard"

@@ -1,4 +1,4 @@
-import { LogOut, User } from "lucide-react"
+import { LogOut, User } from 'lucide-react'
 
 export function Header({
   className,
@@ -15,9 +15,7 @@ export function Header({
         <div className="rounded-full p-1 w-8 h-8 flex items-center justify-center bg-primary">
           <User name="lucide:user" className="text-dark" />
         </div>
-        <p className="text-sm text-white">
-          Jim Champagne
-        </p>
+        <p className="text-sm text-white">Jim Champagne</p>
       </div>
       {/* Logout */}
       <button className="group/logout flex items-center justify-center rounded-[5px] group- cursor-pointer w-8 h-8 bg-primary ease-in-out duration-200">

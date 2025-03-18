@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { House, Boxes, ClipboardList, Tickets } from "lucide-react"
+import Link from 'next/link'
+import { House, Boxes, ClipboardList, Tickets } from 'lucide-react'
 
-type textEnum = "Dashboard" | "Projects" | "Boards" | "Tickets"
+type textEnum = 'Dashboard' | 'Projects' | 'Boards' | 'Tickets'
 
 export function SidebarLink({
   className,
@@ -17,25 +17,25 @@ export function SidebarLink({
       className={`py-2 px-4 bg-transparent group !text-white hover:!bg-primary hover:!text-dark rounded-xl flex items-center gap-2 ${className}`}
       href={href}
     >
-      {text === "Dashboard" && (
+      {text === 'Dashboard' && (
         <House
           name="lucide:house"
           className="!text-primary group-hover:!text-dark transition ease-in-out duration-250"
         />
       )}
-      {text === "Projects" && (
+      {text === 'Projects' && (
         <Boxes
           name="lucide:boxes"
           className="!text-primary group-hover:!text-dark transition ease-in-out duration-250"
         />
       )}
-      {text === "Boards" && (
+      {text === 'Boards' && (
         <ClipboardList
           name="lucide:clipboard-list"
           className="!text-primary group-hover:!text-dark transition ease-in-out duration-250"
         />
       )}
-      {text === "Tickets" && (
+      {text === 'Tickets' && (
         <Tickets
           name="lucide:tickets"
           className="!text-primary group-hover:!text-dark transition ease-in-out duration-250"
