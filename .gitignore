@@ -1,0 +1,11 @@
+# IGNORE
+
+/apps/*/node_modules
+/apps/*/dist
+/apps/*/build
+/apps/*/.env
+.env
+
+# DONT'IGNORE / INCLUDE
+
+!/apps/*/.env.example
