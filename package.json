@@ -7,7 +7,7 @@
     "typecheck": "npm run typecheck:frontend && npm run typecheck:backend",
     "typecheck:frontend": "tsc --project ./apps/frontend/tsconfig.json --noEmit",
     "typecheck:backend": "tsc --project ./apps/backend/tsconfig.json --noEmit",
-    "format": "prettier --write ."
+    "format": "prettier --write \"**/*.{js,ts,tsx,css,html,json,md}\" --ignore-path .prettierignore"
   },
   "devDependencies": {
     "typescript": "^5.x"

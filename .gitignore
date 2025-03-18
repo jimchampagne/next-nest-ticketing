@@ -1,4 +1,9 @@
 # IGNORE
+node_modules
+dist
+build
+.env
+
 /apps/*/node_modules
 /apps/*/dist
 /apps/*/build
