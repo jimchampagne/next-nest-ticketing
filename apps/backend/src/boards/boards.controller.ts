@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common'
-import { BoardsService } from './boards.service'
+import { BoardsService } from '@boards/boards.service'
 import { Prisma } from '@prisma/client'
 
 @Controller('boards')

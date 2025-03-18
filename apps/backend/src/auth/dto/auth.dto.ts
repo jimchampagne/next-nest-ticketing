@@ -16,3 +16,7 @@ export class AuthJwtPayload {
   sub: number
   email: string
 }
+
+export interface AuthenticatedRequest extends Request {
+  user: AuthJwtPayload
+}

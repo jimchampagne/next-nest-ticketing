@@ -7,13 +7,9 @@ import {
   Post,
   Request,
 } from '@nestjs/common'
-import { AuthService } from './auth.service'
-import { AuthJwtPayload, AuthSignIn } from './dto/auth.dto'
-import { Public } from './auth.decorator'
-
-export interface AuthenticatedRequest extends Request {
-  user: AuthJwtPayload
-}
+import { AuthService } from '@auth/auth.service'
+import { AuthSignIn, AuthenticatedRequest } from '@auth/dto/auth.dto'
+import { Public } from '@auth/auth.decorator'
 
 @Controller('auth')
 export class AuthController {

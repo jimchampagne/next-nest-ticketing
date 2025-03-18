@@ -7,9 +7,9 @@ import {
 import { JwtService } from '@nestjs/jwt'
 import { ConfigService } from '@nestjs/config'
 import { Request } from 'express'
-import { AuthJwtPayload } from './dto/auth.dto'
+import { AuthJwtPayload } from '@auth/dto/auth.dto'
 import { Reflector } from '@nestjs/core'
-import { IS_PUBLIC_KEY } from './auth.decorator'
+import { IS_PUBLIC_KEY } from '@auth/auth.decorator'
 
 interface RequestWithUser extends Request {
   user: AuthJwtPayload
