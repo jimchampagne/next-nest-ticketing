@@ -3,6 +3,7 @@ node_modules
 dist
 build
 .env
+.vscode
 
 /apps/*/node_modules
 /apps/*/dist
