@@ -22,7 +22,7 @@ export class AuthController {
     return this.authService.authenticate(input)
   }
 
-  @Get('profile')
+  @Get('me')
   getProfile(@Request() request: AuthenticatedRequest) {
     return request.user
   }
