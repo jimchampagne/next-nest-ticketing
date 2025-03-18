@@ -1,0 +1,15 @@
+{
+  "name": "next-nest-ticketing",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "typecheck": "npm run typecheck:frontend && npm run typecheck:backend",
+    "typecheck:frontend": "tsc --project ./apps/frontend/tsconfig.json --noEmit",
+    "typecheck:backend": "tsc --project ./apps/backend/tsconfig.json --noEmit",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "typescript": "^5.x"
+  }
+}
