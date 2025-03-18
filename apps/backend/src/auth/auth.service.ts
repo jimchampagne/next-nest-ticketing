@@ -108,7 +108,7 @@ export class AuthService {
       throw new ForbiddenException('Access Denied')
 
     const refreshTokenMatches = await argon2.verify(
-      user.refreshToken as string,
+      user.refreshToken,
       refreshToken,
     )
 
