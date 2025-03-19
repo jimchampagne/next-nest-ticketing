@@ -10,7 +10,8 @@ import {
 } from '@nestjs/common'
 import { UsersService } from '@users/users.service'
 import { Prisma } from '@prisma/client'
-import { AccessTokenGuard } from '@/common/guards/accessToken.guard'
+import { AccessTokenGuard } from '@/guards/accessToken.guard'
+import { ModifyGuard } from '@/guards/modify.guard'
 
 @Controller('users')
 export class UsersController {
@@ -33,7 +34,7 @@ export class UsersController {
     return this.usersService.findOne(+id)
   }
 
-  @UseGuards(AccessTokenGuard)
+  @UseGuards(AccessTokenGuard, ModifyGuard)
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -42,7 +43,7 @@ export class UsersController {
     return this.usersService.update(+id, updateUserDto)
   }
 
-  @UseGuards(AccessTokenGuard)
+  @UseGuards(AccessTokenGuard, ModifyGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id)

@@ -7,10 +7,14 @@ import {
   Param,
   Delete,
   UseGuards,
+  Req,
 } from '@nestjs/common'
 import { BoardsService } from '@boards/boards.service'
 import { Prisma } from '@prisma/client'
-import { AccessTokenGuard } from '@/common/guards/accessToken.guard'
+import { AccessTokenGuard } from '@/guards/accessToken.guard'
+import { AuthenticatedRequest } from '@/auth/dto/auth.dto'
+import { ModifyGuard } from '@/guards/modify.guard'
+import { CreateBoardDto } from './dto/create-board.dto'
 
 @Controller('boards')
 export class BoardsController {
@@ -18,21 +22,38 @@ export class BoardsController {
 
   @UseGuards(AccessTokenGuard)
   @Post()
-  create(@Body() createBoardDto: Prisma.BoardCreateInput) {
-    return this.boardsService.create(createBoardDto)
-  }
-
-  @Get()
-  findAll() {
-    return this.boardsService.findAll()
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.boardsService.findOne(+id)
+  create(
+    @Body() requestBody: CreateBoardDto,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    return this.boardsService.create({
+      title: requestBody.title,
+      user: {
+        connect: {
+          id: request.user.sub,
+        },
+      },
+      project: {
+        connect: {
+          id: requestBody.projectId,
+        },
+      },
+    })
   }
 
   @UseGuards(AccessTokenGuard)
+  @Get()
+  findAll(@Req() request: AuthenticatedRequest) {
+    return this.boardsService.findAll(request.user.sub)
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Get(':id')
+  findOne(@Param('id') id: string, @Req() request: AuthenticatedRequest) {
+    return this.boardsService.findOne(+id, request.user.sub)
+  }
+
+  @UseGuards(AccessTokenGuard, ModifyGuard)
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -41,7 +62,7 @@ export class BoardsController {
     return this.boardsService.update(+id, updateBoardDto)
   }
 
-  @UseGuards(AccessTokenGuard)
+  @UseGuards(AccessTokenGuard, ModifyGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.boardsService.remove(+id)

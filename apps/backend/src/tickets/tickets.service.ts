@@ -5,16 +5,17 @@ import { DatabaseService } from '@database/database.service'
 @Injectable()
 export class TicketsService {
   constructor(private readonly databaseService: DatabaseService) {}
+
   async create(createTicketDto: Prisma.TicketCreateInput) {
     return this.databaseService.ticket.create({ data: createTicketDto })
   }
 
-  async findAll() {
-    return this.databaseService.ticket.findMany()
+  async findAll(userId: number) {
+    return this.databaseService.ticket.findMany({ where: { userId } })
   }
 
-  async findOne(id: number) {
-    return this.databaseService.ticket.findUnique({ where: { id } })
+  async findOne(id: number, userId: number) {
+    return this.databaseService.ticket.findUnique({ where: { id, userId } })
   }
 
   async update(id: number, updateTicketDto: Prisma.TicketUpdateInput) {

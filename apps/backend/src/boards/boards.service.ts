@@ -5,16 +5,17 @@ import { DatabaseService } from '@database/database.service'
 @Injectable()
 export class BoardsService {
   constructor(private readonly databaseService: DatabaseService) {}
+
   async create(createBoardDto: Prisma.BoardCreateInput) {
     return this.databaseService.board.create({ data: createBoardDto })
   }
 
-  async findAll() {
-    return this.databaseService.board.findMany()
+  async findAll(userId: number) {
+    return this.databaseService.board.findMany({ where: { userId } })
   }
 
-  async findOne(id: number) {
-    return this.databaseService.board.findUnique({ where: { id } })
+  async findOne(id: number, userId: number) {
+    return this.databaseService.board.findUnique({ where: { id, userId } })
   }
 
   async update(id: number, updateBoardDto: Prisma.BoardUpdateInput) {

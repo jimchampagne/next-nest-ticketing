@@ -2,8 +2,8 @@ import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common'
 import { AuthService } from '@auth/auth.service'
 import { AuthenticatedRequest, AuthLoginDto } from '@auth/dto/auth.dto'
 import { Prisma } from '@prisma/client'
-import { AccessTokenGuard } from '@/common/guards/accessToken.guard'
-import { RefreshTokenGuard } from '@/common/guards/refreshToken.guard'
+import { AccessTokenGuard } from '@/guards/accessToken.guard'
+import { RefreshTokenGuard } from '@/guards/refreshToken.guard'
 
 @Controller('auth')
 export class AuthController {
@@ -27,9 +27,9 @@ export class AuthController {
 
   @UseGuards(RefreshTokenGuard)
   @Get('refresh')
-  refreshTokens(@Req() req: AuthenticatedRequest) {
-    const userId = req.user['sub']
-    const refreshToken = req.user['refreshToken']
+  refreshTokens(@Req() request: AuthenticatedRequest) {
+    const userId = request.user['sub']
+    const refreshToken = request.user['refreshToken']
     return this.authService.refreshTokens(userId, refreshToken)
   }
 }
