@@ -83,36 +83,6 @@ Welcome to **Next-Nest-Ticketing**! Let's dive in and explore the tech stack tha
    npm run dev
    ```
 
-## 🧪 Running Tests
-
-### Backend
-
-1. Navigate to the backend directory:
-
-   ```sh
-   cd apps/backend
-   ```
-
-2. Run the tests:
-
-   ```sh
-   npm run test
-   ```
-
-### Frontend
-
-1. Navigate to the frontend directory:
-
-   ```sh
-   cd apps/frontend
-   ```
-
-2. Run the tests:
-
-   ```sh
-   npm run test
-   ```
-
 ## 🚀 Deployment
 
 When you're ready to deploy your applications, follow the steps below:
@@ -145,10 +115,6 @@ When you're ready to deploy your applications, follow the steps below:
 - [Next.js Documentation](https://nextjs.org/docs)
 - [React Documentation](https://reactjs.org/docs/getting-started.html)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
-
-## 🤝 Contributing
-
-We welcome contributions! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 ## 📜 License
 
