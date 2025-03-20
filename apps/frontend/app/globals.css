@@ -11,17 +11,18 @@
   --font-body: 'Poppins', sans-serif;
   --color-*: initial;
   --color-dark: rgb(11, 11, 11);
-  --color-grey: rgb(35, 35, 35);
+  --color-grey: rgb(24, 24, 24);
   --color-primary: rgb(238, 119, 0);
   --color-secondary: rgb(238, 119, 0);
   --color-white: #f9f5ff;
   --color-red: #ff0000;
   --color-yellow: #ffd700;
+  --color-green: #00ff00;
   --color-transparent: transparent;
 
   /* Gradient Colors */
-  --color-grad-grey-1: rgb(238, 119, 0);
-  --color-grad-grey-2: rgb(238, 119, 0);
+  --color-grad-grey-1: rgb(30, 30, 30);
+  --color-grad-grey-2: rgb(20, 20, 20);
 }
 
 html {

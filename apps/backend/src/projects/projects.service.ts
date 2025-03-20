@@ -13,6 +13,12 @@ export class ProjectsService {
   async findAll(userId: number) {
     return this.databaseService.project.findMany({
       where: { userId: userId },
+    })
+  }
+
+  async findAllWithRelations(userId: number) {
+    return this.databaseService.project.findMany({
+      where: { userId: userId },
       include: {
         boards: {
           include: {

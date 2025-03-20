@@ -44,6 +44,12 @@ export class ProjectsController {
   }
 
   @UseGuards(AccessTokenGuard)
+  @Get('all')
+  findAllWithRelations(@Req() request: AuthenticatedRequest) {
+    return this.projectsService.findAllWithRelations(request.user.sub)
+  }
+
+  @UseGuards(AccessTokenGuard)
   @Get(':id')
   findOne(@Param('id') id: string, @Req() request: AuthenticatedRequest) {
     return this.projectsService.findOne(+id, request.user.sub)

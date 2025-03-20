@@ -16,7 +16,7 @@ export default function DashboardLayout({
           <div className="w-full flex flex-col">
             <Header />
             {/* Content */}
-            <div className="w-full sm:max-w-[calc(100vw-191px)] z-10 p-[60px_16px_16px_16px]">
+            <div className="w-full sm:max-w-[calc(100vw-191px)] z-10 p-[40px_16px_16px_16px]">
               {children}
             </div>
           </div>

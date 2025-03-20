@@ -3,7 +3,7 @@ import { Project } from '@/components/dashboard/Project'
 import { ProjectType } from '@/types/project'
 
 export default async function Page() {
-  const projects = await fetchAction<ProjectType[]>('/projects')
+  const projects = await fetchAction<ProjectType[]>('/projects/all')
   return (
     <div>
       <Project projects={projects} />

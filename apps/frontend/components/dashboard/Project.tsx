@@ -15,10 +15,10 @@ export function Project({
         <div key={project.id} className={`${className} mb-16 relative`}>
           <div className="absolute right-0 top-0 w-[50px] sm:w-[100px] h-full bg-linear-to-l from-dark to-transparent" />
           <div className="mb-2 flex items-center gap-2 font-semibold">
-            <Boxes className="!h-[24px] !w-[24px]" />
+            <Boxes className="!h-[24px] !w-[24px] text-primary" />
             <h1 className="text-white ">{project.title}</h1>
           </div>
-          <div className="flex gap-4 overflow-x-scroll rounded-xl py-4">
+          <div className="flex gap-4 overflow-auto rounded-xl py-4">
             <Board boards={project.boards} />
           </div>
         </div>

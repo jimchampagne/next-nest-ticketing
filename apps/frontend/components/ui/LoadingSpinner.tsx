@@ -9,12 +9,12 @@ export function LoadingSpinner({
     <div
       className={`spinner inline-block border-white border-t-primary rounded-full border-solid ${
         isSmall
-          ? 'w-[1rem] h-[1rem] border-[2px]'
-          : 'w-[2rem] h-[2rem] border-[3px]'
+          ? 'w-[10px] h-[10px] border-[2px]'
+          : 'w-[20px] h-[20px] border-[3px]'
       } ${
         isBig
-          ? 'w-[4rem] h-[4rem] border-[4px]'
-          : 'w-[2rem] h-[2rem] border-[3px]'
+          ? 'w-[40px] h-[40px] border-[4px]'
+          : 'w-[20px] h-[20px] border-[3px]'
       }`}
     />
   )

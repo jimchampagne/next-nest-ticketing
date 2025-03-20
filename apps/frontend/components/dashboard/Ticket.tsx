@@ -1,5 +1,10 @@
 import { TicketType } from '@custom-types/ticket'
-import { GitPullRequest, CircleDashed, CircleX } from 'lucide-react'
+import {
+  GitPullRequest,
+  CircleDashed,
+  CircleX,
+  CheckCheckIcon,
+} from 'lucide-react'
 
 export function Ticket({
   className,
@@ -13,26 +18,32 @@ export function Ticket({
       {tickets?.map((ticket) => (
         <div
           key={ticket.id}
-          className={`${className} group/ticket rounded-md p-4 bg-grey/40 shadow-xl border border-solid border-primary text-white hover:text-dark hover:bg-primary ease-in-out duration-150 cursor-pointer`}
+          className={`${className} group/ticket rounded-md p-4 bg-grad-grey-2 shadow-xl border border-solid border-primary text-white hover:text-dark hover:bg-primary ease-in-out duration-150 cursor-pointer`}
         >
           <div className="flex items-start justify-between mb-2 gap-4">
             <p className="font-semibold text-[18px]">{ticket.title}</p>
-            {ticket.status === 'open' && (
+            {ticket.status === 'In Progress' && (
               <GitPullRequest
                 name="lucide:git-pull-request"
                 className="!h-[24px] !w-[24px] text-primary group-hover/ticket:text-dark"
               />
             )}
-            {ticket.status === 'in_progress' && (
+            {ticket.status === 'To Do' && (
               <CircleDashed
                 name="lucide:circle-dashed"
                 className="!h-[24px] !w-[24px] text-yellow group-hover/ticket:text-yellow"
               />
             )}
-            {ticket.status === 'closed' && (
+            {ticket.status === 'Pending' && (
               <CircleX
                 name="lucide:circle-x"
                 className="!h-[24px] !w-[24px] text-red group-hover/ticket:text-red"
+              />
+            )}
+            {ticket.status === 'Completed' && (
+              <CheckCheckIcon
+                name="lucide:circle-x"
+                className="!h-[24px] !w-[24px] text-green group-hover/ticket:text-red"
               />
             )}
           </div>
