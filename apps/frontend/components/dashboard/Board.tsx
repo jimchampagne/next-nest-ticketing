@@ -20,7 +20,7 @@ export function Board({
             {board.title}
           </h2>
           <div className="flex flex-col gap-2 overflow-y-scroll rounded-md min-h-[520px] h-[520px] pr-[10px]">
-            <Ticket />
+            <Ticket tickets={board.tickets} />
           </div>
         </div>
       ))}

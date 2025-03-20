@@ -19,7 +19,7 @@ export function Project({
             <h1 className="text-white ">{project.title}</h1>
           </div>
           <div className="flex gap-4 overflow-x-scroll rounded-xl py-4">
-            <Board />
+            <Board boards={project.boards} />
           </div>
         </div>
       ))}

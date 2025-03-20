@@ -1,10 +1,23 @@
+'use client'
 import { LogOut, User } from 'lucide-react'
+import { signOut } from 'next-auth/react'
 
 export function Header({
   className,
 }: Readonly<{
   className?: string
 }>) {
+  const logOut = async () => {
+    try {
+      await signOut({
+        redirect: true,
+        callbackUrl: '/login',
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <div
       className={`${className} relative z-0 h-14 border-b-[1px] border-solid border-primary/50 flex justify-between sm:justify-end items-center gap-5 p-4 md:p-[16px_21px_16px_16px] w-full`}
@@ -18,7 +31,11 @@ export function Header({
         <p className="text-sm text-white">Jim Champagne</p>
       </div>
       {/* Logout */}
-      <button className="group/logout flex items-center justify-center rounded-[5px] group- cursor-pointer w-8 h-8 bg-primary ease-in-out duration-200">
+      <button
+        type={'button'}
+        onClick={logOut}
+        className="group/logout flex items-center justify-center rounded-[5px] group- cursor-pointer w-8 h-8 bg-primary ease-in-out duration-200"
+      >
         <LogOut
           name="lucide:log-out"
           className="text-dark group-hover/logout:text-white ease-in-out duration-200"

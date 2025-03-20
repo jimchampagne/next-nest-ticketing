@@ -10,6 +10,8 @@ import { ConfigService } from '@nestjs/config'
 import * as argon2 from 'argon2'
 import { Prisma } from '@prisma/client'
 
+const EXPIRE_TIME = 15 * 60 * 1000
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -50,7 +52,16 @@ export class AuthService {
     const tokens = await this.getTokens(user.id, user.email)
     await this.updateRefreshToken(user.id, tokens.refreshToken)
 
-    return tokens
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+      },
+      ...tokens,
+      issuedAt: Date.now(),
+      expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
+    }
   }
 
   // LOGGING OUT A USER
@@ -115,6 +126,10 @@ export class AuthService {
     if (!refreshTokenMatches) throw new ForbiddenException('Access Denied')
     const tokens = await this.getTokens(user.id, user.email)
     await this.updateRefreshToken(user.id, tokens.refreshToken)
-    return tokens
+    return {
+      ...tokens,
+      issuedAt: Date.now(),
+      expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
+    }
   }
 }

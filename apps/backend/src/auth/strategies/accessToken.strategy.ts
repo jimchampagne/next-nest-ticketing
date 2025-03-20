@@ -12,7 +12,9 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
       throw new Error('JWT_ACCESS_SECRET is not defined')
     }
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ]),
       secretOrKey: secret,
     })
   }

@@ -11,7 +11,16 @@ export class ProjectsService {
   }
 
   async findAll(userId: number) {
-    return this.databaseService.project.findMany({ where: { userId: userId } })
+    return this.databaseService.project.findMany({
+      where: { userId: userId },
+      include: {
+        boards: {
+          include: {
+            tickets: true,
+          },
+        },
+      },
+    })
   }
 
   async findOne(id: number, userId: number) {
