@@ -1,4 +1,4 @@
-# 🚀 Nest/Next Ticketing
+# 🚀 Next/Nest Ticketing
 
 Welcome to **Next-Nest-Ticketing**! Let's dive in and explore the tech stack that powers this beast!
 
