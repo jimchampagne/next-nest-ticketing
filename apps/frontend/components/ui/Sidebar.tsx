@@ -17,7 +17,7 @@ export function Sidebar({
           className="flex items-center justify-center gap-2 py-2 px-4"
         >
           <TicketCheck className="!w-[30px] !h-[30px] text-primary" />
-          <p className="text-white text-[18px]">NuxtTicket</p>
+          <p className="text-white text-[18px]">NextTicket</p>
         </Link>
       </div>
       <div className="flex flex-col gap-1">

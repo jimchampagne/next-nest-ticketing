@@ -10,7 +10,8 @@ import { ConfigService } from '@nestjs/config'
 import * as argon2 from 'argon2'
 import { Prisma } from '@prisma/client'
 
-const EXPIRE_TIME = 15 * 60 * 1000
+// const EXPIRE_TIME = 15 * 60 * 1000
+const EXPIRE_TIME = 20 * 1000
 
 @Injectable()
 export class AuthService {
@@ -91,7 +92,7 @@ export class AuthService {
         },
         {
           secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
-          expiresIn: '15m',
+          expiresIn: '20s',
         },
       ),
       this.jwtService.signAsync(
@@ -129,7 +130,7 @@ export class AuthService {
     return {
       ...tokens,
       issuedAt: Date.now(),
-      expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
+      expiresIn: Date.now() + EXPIRE_TIME,
     }
   }
 }
