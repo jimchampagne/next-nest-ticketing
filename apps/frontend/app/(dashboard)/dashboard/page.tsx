@@ -4,13 +4,13 @@ import { useApiQuery } from '@/lib/hooks/useApiQuery'
 import { ProjectType } from '@/types/project'
 
 export default function Page() {
-  const { data } = useApiQuery<ProjectType[]>(
+  const { data: projects } = useApiQuery<ProjectType[]>(
     '/projects/all',
-    ['all-projects']
+    ['projects-dashboard-page']
   )
   return (
     <div>
-      <Project projects={data} />
+      <Project projects={projects} />
     </div>
   )
 }

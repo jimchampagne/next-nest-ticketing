@@ -4,7 +4,7 @@ import { BoardType } from '@/types/board'
 import { Boxes } from 'lucide-react'
 
 export default function Page() {
-  const { data } = useApiQuery<BoardType[]>(
+  const { data: boards } = useApiQuery<BoardType[]>(
       '/boards',
       ['boards-board-page']
     )
@@ -14,7 +14,7 @@ export default function Page() {
         <Boxes className="!h-[24px] !w-[24px] text-primary" />
         <h1 className="text-white ">Boards Data</h1>
       </div>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <pre>{JSON.stringify(boards, null, 2)}</pre>
     </>
   )
 }

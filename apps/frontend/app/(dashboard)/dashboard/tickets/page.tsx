@@ -4,7 +4,7 @@ import { TicketType } from '@/types/ticket'
 import { Boxes } from 'lucide-react'
 
 export default function Page() {
-  const { data } = useApiQuery<TicketType[]>(
+  const { data: tickets } = useApiQuery<TicketType[]>(
     '/tickets',
     ['tickets-ticket-page']
   )
@@ -14,7 +14,7 @@ export default function Page() {
         <Boxes className="!h-[24px] !w-[24px] text-primary" />
         <h1 className="text-white ">Tickets Data</h1>
       </div>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <pre>{JSON.stringify(tickets, null, 2)}</pre>
     </>
   )
 }

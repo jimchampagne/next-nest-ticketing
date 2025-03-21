@@ -4,7 +4,7 @@ import { Boxes } from 'lucide-react'
 import { useApiQuery } from '@/lib/hooks/useApiQuery'
 
 export default function Page() {
-  const { data } = useApiQuery<Project[]>(
+  const { data: projects } = useApiQuery<Project[]>(
         '/projects',
         ['projects-project-page']
       )
@@ -14,7 +14,7 @@ export default function Page() {
         <Boxes className="!h-[24px] !w-[24px] text-primary" />
         <h1 className="text-white ">Projects Data</h1>
       </div>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <pre>{JSON.stringify(projects, null, 2)}</pre>
     </>
   )
 }

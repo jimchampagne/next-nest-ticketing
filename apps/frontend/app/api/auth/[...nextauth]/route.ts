@@ -3,7 +3,6 @@ import { JWT, RefreshResponse } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 async function refreshToken(token: JWT): Promise<JWT> {
-  console.log("Refreshing, Current refreshToken:", token.refreshToken.slice(-10))
   try {
     const res = await fetch(
       process.env.NEXT_PUBLIC_API_BASE + '/auth/refresh',
@@ -14,7 +13,6 @@ async function refreshToken(token: JWT): Promise<JWT> {
       },
     )
     const refresh: RefreshResponse = await res.json()
-    console.log("Refreshed, New refreshToken:", refresh.refreshToken.slice(-10))
     return {
       user: {
         id: token.user.id,
@@ -28,7 +26,7 @@ async function refreshToken(token: JWT): Promise<JWT> {
     }
   } catch (error) {
     console.log('Unable to refresh token, returning old token')
-    console.log('Error:', error)
+    console.error('Error:', error)
     return token
   }
 }
@@ -105,7 +103,6 @@ export const authOptions: NextAuthOptions = {
       }
       // THIS If will kick in on all subsequent JWT callbacks/Session getters
       if (Date.now() < token.expiresAt) {
-        console.log('Token is still valid, returning token:', token)
         return token
       }
       // The next code will kick in if token is expired
