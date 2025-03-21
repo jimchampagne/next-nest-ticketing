@@ -1,12 +1,16 @@
-import { fetchAction } from '@/app/actions/fetchAction'
+"use client"
 import { Project } from '@/components/dashboard/Project'
+import { useApiQuery } from '@/lib/hooks/useApiQuery'
 import { ProjectType } from '@/types/project'
 
-export default async function Page() {
-  const projects = await fetchAction<ProjectType[]>('/projects/all')
+export default function Page() {
+  const { data } = useApiQuery<ProjectType[]>(
+    '/projects/all',
+    ['all-projects']
+  )
   return (
     <div>
-      <Project projects={projects} />
+      <Project projects={data} />
     </div>
   )
 }

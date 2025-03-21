@@ -10,8 +10,8 @@ import { ConfigService } from '@nestjs/config'
 import * as argon2 from 'argon2'
 import { Prisma } from '@prisma/client'
 
-// const EXPIRE_TIME = 15 * 60 * 1000
-const EXPIRE_TIME = 20 * 1000
+// const EXPIRE_TIME = 10 * 60 * 1000
+const EXPIRE_TIME = 10 * 1000
 
 @Injectable()
 export class AuthService {
@@ -35,7 +35,7 @@ export class AuthService {
     })
 
     const tokens = await this.getTokens(newUser.id, newUser.email)
-    await this.updateRefreshToken(newUser.id, tokens.refreshToken)
+    await this.updateRefreshTokenInDatabase(newUser.id, tokens.refreshToken)
     return tokens
   }
 
@@ -51,7 +51,7 @@ export class AuthService {
     if (!passwordMatches) throw new BadRequestException('Password is incorrect')
 
     const tokens = await this.getTokens(user.id, user.email)
-    await this.updateRefreshToken(user.id, tokens.refreshToken)
+    await this.updateRefreshTokenInDatabase(user.id, tokens.refreshToken)
 
     return {
       user: {
@@ -61,7 +61,7 @@ export class AuthService {
       },
       ...tokens,
       issuedAt: Date.now(),
-      expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
+      expiresAt: Date.now() + EXPIRE_TIME,
     }
   }
 
@@ -75,7 +75,7 @@ export class AuthService {
   }
 
   // UPDATE REFRESH TOKEN
-  async updateRefreshToken(userId: number, refreshToken: string) {
+  async updateRefreshTokenInDatabase(userId: number, refreshToken: string) {
     const hashedRefreshToken = await this.hashData(refreshToken)
     await this.usersService.update(userId, {
       refreshToken: hashedRefreshToken,
@@ -92,7 +92,7 @@ export class AuthService {
         },
         {
           secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
-          expiresIn: '20s',
+          expiresIn: '10s',
         },
       ),
       this.jwtService.signAsync(
@@ -126,11 +126,11 @@ export class AuthService {
 
     if (!refreshTokenMatches) throw new ForbiddenException('Access Denied')
     const tokens = await this.getTokens(user.id, user.email)
-    await this.updateRefreshToken(user.id, tokens.refreshToken)
+    await this.updateRefreshTokenInDatabase(user.id, tokens.refreshToken)
     return {
       ...tokens,
       issuedAt: Date.now(),
-      expiresIn: Date.now() + EXPIRE_TIME,
+      expiresAt: Date.now() + EXPIRE_TIME,
     }
   }
 }
