@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "strict": true,
     "target": "ES2017",
     "module": "esnext",
     "noEmit": true,
@@ -13,26 +14,12 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@custom-types/*": [
-        "types/*",
-        "types/*.d.ts"
-      ]
+      "@/*": ["*"],
+      "@components/*": ["components/*"],
+      "@custom-types/*": ["types/*", "types/*.d.ts"]
     },
     "allowJs": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

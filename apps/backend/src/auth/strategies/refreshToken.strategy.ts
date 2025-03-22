@@ -1,5 +1,5 @@
 import { PassportStrategy } from '@nestjs/passport'
-import { ExtractJwt, Strategy, StrategyOptionsWithRequest } from 'passport-jwt'
+import { ExtractJwt, Strategy } from 'passport-jwt'
 import { Request } from 'express'
 import { Injectable } from '@nestjs/common'
 import { AuthJwtPayload } from '../dto/auth.dto'
@@ -14,19 +14,38 @@ export class RefreshTokenStrategy extends PassportStrategy(
     if (!secret) {
       throw new Error('JWT_REFRESH_SECRET is not defined')
     }
-    const options: StrategyOptionsWithRequest = {
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+
+    super({
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        // Extract from Bearer token in Authorization header
+        ExtractJwt.fromAuthHeaderAsBearerToken(),
+
+        // Extract from refreshToken cookie
+        (req: Request) => {
+          const cookies = req.headers.cookie
+          if (!cookies) return null
+
+          const refreshToken = cookies.match(/refreshToken=([^;]+)/)
+          if (refreshToken && refreshToken[1]) {
+            console.log('--------------------')
+            console.log('Extracted refresh token from cookie!')
+            console.log('--------------------')
+            return refreshToken[1]
+          }
+          return null
+        },
+      ]),
       secretOrKey: secret,
       passReqToCallback: true,
-    }
-
-    super(options)
+    })
   }
 
   validate(req: Request, payload: AuthJwtPayload) {
     const refreshToken = req.get('Authorization')?.replace('Bearer', '').trim()
     if (!refreshToken) {
-      throw new Error('Refresh token not found')
+      throw new Error(
+        'Refresh token not found in Authorization header or cookies',
+      )
     }
     return { ...payload, refreshToken }
   }

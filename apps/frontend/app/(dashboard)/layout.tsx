@@ -2,8 +2,6 @@ import { Header } from '@components/ui/Header'
 import { Footer } from '@components/ui/Footer'
 import { Sidebar } from '@components/ui/Sidebar'
 import Providers from '@/components/Providers'
-import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClient } from '@/lib/react-query-client'
 
 export default function DashboardLayout({
   children,
