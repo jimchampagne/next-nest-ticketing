@@ -27,7 +27,7 @@ export class AuthController {
     return this.authService.refreshTokens(userId, refreshToken)
   }
 
-  @UseGuards(AccessTokenGuard)
+  @UseGuards(RefreshTokenGuard)
   @Get('logout')
   async logout(@Req() req: AuthenticatedRequest) {
     await this.authService.logout(req.user['sub'])
