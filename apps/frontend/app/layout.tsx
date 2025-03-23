@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Raleway, Poppins } from 'next/font/google'
 import './globals.css'
+import Providers from '@/components/Providers'
 
 const RalewayFont = Raleway({
   variable: '--font-raleway',
@@ -29,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${RalewayFont.variable} ${PoppinsFont.variable} antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

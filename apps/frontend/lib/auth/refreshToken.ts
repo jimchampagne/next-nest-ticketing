@@ -38,10 +38,15 @@ export async function refreshAccessToken() {
       path: '/',
     })
 
-    return { message: 'Token refreshed successfully' }
+    return {
+      newAccessToken: data.accessToken,
+    }
   } else {
     cookieStore.delete('accessToken')
     cookieStore.delete('refreshToken')
     cookieStore.delete('user')
+    return {
+      newAccessToken: null,
+    }
   }
 }
