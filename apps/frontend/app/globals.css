@@ -49,6 +49,26 @@ h3 {
   @apply text-lg;
 }
 
+/* GRADIENTS */
+.gradient-to-bottom {
+  @apply bg-linear-to-b from-grad-grey-1 to-grad-grey-2;
+}
+
+.gradient-to-right {
+  @apply bg-linear-to-r from-grad-grey-1 to-grad-grey-2;
+}
+
+/* CARDS */
+.horizontal-card {
+  @apply rounded-md bg-linear-to-r from-grad-grey-1 to-grad-grey-2 border border-grey hover:border hover:border-primary transition duration-250;
+}
+
+.vertical-card {
+  @apply rounded-md bg-linear-to-b from-grad-grey-1 to-grad-grey-2 border border-grey hover:border hover:border-primary transition duration-250;
+}
+
+/* FORMS */
+
 .form-group {
   @apply flex flex-1 flex-col w-full;
 
@@ -61,7 +81,7 @@ h3 {
   @apply text-red text-sm mb-4 text-center;
 }
 
-/* Loading Spinner */
+/* LOADING SPINNER */
 .spinner {
   animation: spin 1s ease-in-out infinite;
 }
@@ -72,7 +92,7 @@ h3 {
   }
 }
 
-/* Scrollbar Styles */
+/* SCROLLBAR */
 
 /* width */
 ::-webkit-scrollbar {
