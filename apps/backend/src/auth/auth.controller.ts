@@ -2,7 +2,6 @@ import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common'
 import { AuthService } from '@auth/auth.service'
 import { AuthenticatedRequest, AuthLoginDto } from '@auth/dto/auth.dto'
 import { Prisma } from '@prisma/client'
-import { AccessTokenGuard } from '@/guards/accessToken.guard'
 import { RefreshTokenGuard } from '@/guards/refreshToken.guard'
 
 @Controller('auth')
