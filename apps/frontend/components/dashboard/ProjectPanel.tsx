@@ -13,9 +13,11 @@ export function ProjectPanel({
     <>
       {projects?.map((project) => (
         <div key={project.id} className={`${className} mb-12 relative`}>
-          <div className="mb-2 flex items-center gap-2 font-semibold">
-            <Boxes className="!h-[24px] !w-[24px] text-primary" />
-            <h1 className="text-white ">{project.title}</h1>
+          <div>
+            <div className="mb-2 flex items-center gap-2 font-semibold">
+              <Boxes className="!h-[24px] !w-[24px] text-primary" />
+              <h1 className="text-white ">{project.title}</h1>
+            </div>
           </div>
           <div className="flex flex-col gap-6 overflow-auto rounded-xl py-4">
             <BoardPanel boards={project.boards} />

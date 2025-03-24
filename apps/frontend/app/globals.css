@@ -12,6 +12,7 @@
   --color-*: initial;
   --color-dark: rgb(11, 11, 11);
   --color-grey: rgb(24, 24, 24);
+  --color-lightgrey: rgb(50, 50, 50);
   --color-primary: rgb(238, 119, 0);
   --color-secondary: rgb(238, 119, 0);
   --color-white: #f9f5ff;
@@ -74,6 +75,14 @@ h3 {
 
   input {
     @apply p-2 border border-primary bg-white text-dark rounded-lg text-[12px] focus:outline-none focus:bg-white;
+  }
+
+  select {
+    @apply bg-white rounded-lg text-dark p-2 text-[12px];
+  }
+
+  textarea {
+    @apply bg-white rounded-lg text-dark p-2 text-[12px];
   }
 }
 
