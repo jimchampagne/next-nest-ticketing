@@ -54,7 +54,7 @@ export function BoardDeleteForm({ board }: Props) {
             onChange={handleCheckbox}
           />
           <label className="text-sm" htmlFor="deleteConfirm">
-            Yes, I want to delete this board.
+            Yes, I want to delete this board and all tickets associated.
           </label>
         </div>
         <BtnPrimary disabled={!deleteConfirm} type="submit" className="w-full">
