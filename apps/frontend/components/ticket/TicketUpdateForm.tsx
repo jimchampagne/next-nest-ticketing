@@ -6,25 +6,32 @@ import { useApiMutation } from '@/lib/hooks/useApiMutation'
 import { useModal } from '../ui/ModalContext'
 import { useForm } from '@/lib/hooks/useForm'
 import { ticketSchema } from '@/lib/zod/createTicketSchema'
+import { TicketType } from '@/types/ticket'
 
 type Props = {
-  boardId?: number
+  ticket: TicketType
 }
 
-export function TicketCreateForm({ boardId }: Props) {
-  const newTicket = useApiMutation('/tickets', ['projects-dashboard-page'])
+export function TicketUpdateForm({ ticket }: Props) {
+  const newTicket = useApiMutation(
+    `/tickets/${ticket.id}`,
+    ['projects-dashboard-page'],
+    {
+      method: 'PATCH',
+    },
+  )
   const { closeModal } = useModal()
 
   const { errors, handleSubmit, handleInputChange } = useForm(
     {
-      title: '',
-      description: '',
-      status: 'To Do',
-      priority: 'High',
+      title: ticket.title,
+      description: ticket.description,
+      status: ticket.status,
+      priority: ticket.priority,
     },
     ticketSchema,
     (data) => {
-      newTicket.mutate({ ...data, boardId }, { onSuccess: () => closeModal() })
+      newTicket.mutate({ ...data }, { onSuccess: () => closeModal() })
     },
   )
   return (
@@ -38,6 +45,7 @@ export function TicketCreateForm({ boardId }: Props) {
             type="text"
             placeholder="Enter a title"
             onChange={handleInputChange}
+            defaultValue={ticket.title}
           />
           {errors.title && <div className="form-error">{errors.title}</div>}
         </div>
@@ -48,6 +56,7 @@ export function TicketCreateForm({ boardId }: Props) {
             name="description"
             placeholder="Enter a description"
             onChange={handleInputChange}
+            defaultValue={ticket.description}
           />
           {errors.description && (
             <div className="form-error">{errors.description}</div>
@@ -55,7 +64,12 @@ export function TicketCreateForm({ boardId }: Props) {
         </div>
         <div className="form-group mb-4">
           <p className="text-sm mb-1">Status</p>
-          <select name="status" id="status" onChange={handleInputChange}>
+          <select
+            name="status"
+            id="status"
+            onChange={handleInputChange}
+            defaultValue={ticket.status}
+          >
             <option>To Do</option>
             <option>Pending</option>
             <option>In Progress</option>
@@ -65,7 +79,12 @@ export function TicketCreateForm({ boardId }: Props) {
         </div>
         <div className="form-group mb-12">
           <p className="text-sm mb-1">Priority</p>
-          <select name="priority" id="status" onChange={handleInputChange}>
+          <select
+            name="priority"
+            id="status"
+            onChange={handleInputChange}
+            defaultValue={ticket.priority}
+          >
             <option>High</option>
             <option>Medium</option>
             <option>Low</option>
@@ -75,7 +94,7 @@ export function TicketCreateForm({ boardId }: Props) {
           )}
         </div>
         <BtnPrimary type="submit" className="w-full">
-          {newTicket.isPending ? <LoadingSpinner is-small /> : <p>Create</p>}
+          {newTicket.isPending ? <LoadingSpinner is-small /> : <p>Update</p>}
         </BtnPrimary>
       </form>
     </>

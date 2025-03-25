@@ -3,8 +3,8 @@ export interface TicketType {
   board_id: number
   title: string
   description: string
-  status: string
-  priority: number
-  created_at: Date
-  updated_at: Date
+  status?: string
+  priority?: string
+  created_at?: Date
+  updated_at?: Date
 }

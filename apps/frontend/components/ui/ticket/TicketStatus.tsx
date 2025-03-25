@@ -5,11 +5,11 @@ import {
   CheckCheckIcon,
 } from 'lucide-react'
 
-export function TicketStatusIcon({
-  ticketStatus,
-}: Readonly<{
-  ticketStatus: string
-}>) {
+type Props = {
+  ticketStatus: string | undefined
+}
+
+export function TicketStatusIcon({ ticketStatus }: Props) {
   if (ticketStatus === 'In Progress')
     return (
       <GitPullRequest

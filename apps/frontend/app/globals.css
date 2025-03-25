@@ -90,6 +90,10 @@ h3 {
   @apply text-red text-sm mb-4 text-center;
 }
 
+.form-error {
+  @apply text-red text-sm mt-1 text-start;
+}
+
 /* LOADING SPINNER */
 .spinner {
   animation: spin 1s ease-in-out infinite;

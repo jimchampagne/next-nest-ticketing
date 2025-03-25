@@ -51,7 +51,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
           className={`fixed inset-0 z-50 flex items-center justify-center bg-dark/90 transition duration-250 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}
           onClick={handleBackdropClick}
         >
-          <div className="relative max-w-screen min-w-sm mx-12 horizontal-card rounded-xl p-6">
+          <div className="relative max-w-screen min-w-md mx-12 horizontal-card rounded-xl p-6">
             <div className="flex justify-between items-center mb-4">
               <p className="text-[20px] font-semibold">{title}</p>
               <BtnIcon onClick={closeModal}>
