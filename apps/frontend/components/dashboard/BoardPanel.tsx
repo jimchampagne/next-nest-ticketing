@@ -1,9 +1,11 @@
 import { TicketItem } from '@/components/dashboard/TicketItem'
 import { BoardType } from '@custom-types/board'
-import { ClipboardList, PlusIcon } from 'lucide-react'
+import { ClipboardList, Edit, PlusIcon, Trash2 } from 'lucide-react'
 import { useModal } from '../ui/ModalContext'
 import { TicketCreateForm } from '../ticket/TicketCreateForm'
 import { BtnIcon } from '../ui/btn/BtnIcon'
+import { BoardUpdateForm } from '../board/BoardUpdateForm'
+import { BoardDeleteForm } from '../board/BoardDeleteForm'
 
 type Props = {
   className?: string
@@ -28,21 +30,44 @@ export function BoardPanel({ className, boards }: Props) {
               {board.title}
             </h3>
             {/* Create new ticket button */}
-            <BtnIcon
-              className="relative right-2"
-              onClick={() =>
-                openModal(
-                  'Create new ticket',
-                  <TicketCreateForm boardId={board.id} />,
-                )
-              }
-            >
-              <PlusIcon className="text-white w-5 h-5"></PlusIcon>
-            </BtnIcon>
+            <div className="flex items-center gap-1 relative right-3">
+              <BtnIcon
+                onClick={() =>
+                  openModal(
+                    'Create new ticket',
+                    <TicketCreateForm boardId={board.id} />,
+                  )
+                }
+              >
+                <PlusIcon className="text-white w-5 h-5"></PlusIcon>
+              </BtnIcon>
+              <BtnIcon
+                onClick={() =>
+                  openModal(
+                    'Update board title',
+                    <BoardUpdateForm board={board} />,
+                  )
+                }
+              >
+                <Edit className="text-white w-4 h-4" />
+              </BtnIcon>
+
+              <BtnIcon
+                onClick={() =>
+                  openModal(`Delete board`, <BoardDeleteForm board={board} />)
+                }
+              >
+                <Trash2 className="text-white w-4 h-4"></Trash2>
+              </BtnIcon>
+            </div>
           </div>
-          <div className="flex flex-col gap-2 overflow-auto rounded-md pr-[10px]">
-            <TicketItem tickets={board.tickets} />
-          </div>
+          {board.tickets && board.tickets.length > 0 ? (
+            <div className="flex flex-col gap-2 overflow-auto rounded-md pr-[10px]">
+              <TicketItem tickets={board.tickets} />
+            </div>
+          ) : (
+            <div>This board doesn&apos;t have tickets yet.</div>
+          )}
         </div>
       ))}
     </>

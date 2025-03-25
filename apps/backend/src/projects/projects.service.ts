@@ -21,8 +21,15 @@ export class ProjectsService {
       where: { userId: userId },
       include: {
         boards: {
+          orderBy: {
+            updatedAt: 'desc',
+          },
           include: {
-            tickets: true,
+            tickets: {
+              orderBy: {
+                updatedAt: 'desc',
+              },
+            },
           },
         },
       },

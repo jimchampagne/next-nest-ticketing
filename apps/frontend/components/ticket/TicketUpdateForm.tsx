@@ -5,7 +5,7 @@ import { LoadingSpinner } from '../ui/LoadingSpinner'
 import { useApiMutation } from '@/lib/hooks/useApiMutation'
 import { useModal } from '../ui/ModalContext'
 import { useForm } from '@/lib/hooks/useForm'
-import { ticketSchema } from '@/lib/zod/createTicketSchema'
+import { ticketSchema } from '@/lib/zod/ticketSchema'
 import { TicketType } from '@/types/ticket'
 
 type Props = {
@@ -13,14 +13,14 @@ type Props = {
 }
 
 export function TicketUpdateForm({ ticket }: Props) {
-  const newTicket = useApiMutation(
+  const { closeModal } = useModal()
+  const updateTicket = useApiMutation(
     `/tickets/${ticket.id}`,
     ['projects-dashboard-page'],
     {
       method: 'PATCH',
     },
   )
-  const { closeModal } = useModal()
 
   const { errors, handleSubmit, handleInputChange } = useForm(
     {
@@ -31,7 +31,7 @@ export function TicketUpdateForm({ ticket }: Props) {
     },
     ticketSchema,
     (data) => {
-      newTicket.mutate({ ...data }, { onSuccess: () => closeModal() })
+      updateTicket.mutate({ ...data }, { onSuccess: () => closeModal() })
     },
   )
   return (
@@ -94,7 +94,7 @@ export function TicketUpdateForm({ ticket }: Props) {
           )}
         </div>
         <BtnPrimary type="submit" className="w-full">
-          {newTicket.isPending ? <LoadingSpinner is-small /> : <p>Update</p>}
+          {updateTicket.isPending ? <LoadingSpinner is-small /> : <p>Update</p>}
         </BtnPrimary>
       </form>
     </>

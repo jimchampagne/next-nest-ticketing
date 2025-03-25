@@ -5,15 +5,15 @@ import { LoadingSpinner } from '../ui/LoadingSpinner'
 import { useApiMutation } from '@/lib/hooks/useApiMutation'
 import { useModal } from '../ui/ModalContext'
 import { useForm } from '@/lib/hooks/useForm'
-import { ticketSchema } from '@/lib/zod/createTicketSchema'
+import { ticketSchema } from '@/lib/zod/ticketSchema'
 
 type Props = {
   boardId?: number
 }
 
 export function TicketCreateForm({ boardId }: Props) {
-  const newTicket = useApiMutation('/tickets', ['projects-dashboard-page'])
   const { closeModal } = useModal()
+  const newTicket = useApiMutation('/tickets', ['projects-dashboard-page'])
 
   const { errors, handleSubmit, handleInputChange } = useForm(
     {

@@ -39,7 +39,7 @@ export class ModifyGuard {
       isOwner = project && project.userId === user.sub
     }
 
-    if (controller === 'BoardController') {
+    if (controller === 'BoardsController') {
       const board = await this.boardService.findOne(+params.id, user.sub)
       isOwner = board && board.userId === user.sub
     }
