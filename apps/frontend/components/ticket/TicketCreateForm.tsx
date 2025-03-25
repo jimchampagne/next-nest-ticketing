@@ -13,7 +13,10 @@ type Props = {
 
 export function TicketCreateForm({ boardId }: Props) {
   const { closeModal } = useModal()
-  const newTicket = useApiMutation('/tickets', ['projects-dashboard-page'])
+  const newTicket = useApiMutation('/tickets', [
+    'projects-dashboard-page',
+    'tickets-ticket-page',
+  ])
 
   const { errors, handleSubmit, handleInputChange } = useForm(
     {

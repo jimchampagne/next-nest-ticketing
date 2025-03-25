@@ -16,7 +16,7 @@ export function BoardUpdateForm({ board }: Props) {
   const { closeModal } = useModal()
   const updateBoard = useApiMutation(
     `/boards/${board.id}`,
-    ['projects-dashboard-page'],
+    ['projects-dashboard-page', 'boards-board-page'],
     {
       method: 'PATCH',
     },

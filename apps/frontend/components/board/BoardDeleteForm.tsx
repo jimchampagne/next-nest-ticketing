@@ -21,7 +21,7 @@ export function BoardDeleteForm({ board }: Props) {
 
   const deleteBoard = useApiMutation(
     `/boards/${board.id}`,
-    ['projects-dashboard-page'],
+    ['projects-dashboard-page', 'boards-board-page'],
     {
       method: 'DELETE',
     },

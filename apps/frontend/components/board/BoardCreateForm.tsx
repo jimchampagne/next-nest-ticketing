@@ -13,7 +13,10 @@ type Props = {
 
 export function BoardCreateForm({ projectId }: Props) {
   const { closeModal } = useModal()
-  const newBoard = useApiMutation('/boards', ['projects-dashboard-page'])
+  const newBoard = useApiMutation('/boards', [
+    'projects-dashboard-page',
+    'boards-board-page',
+  ])
 
   const { errors, handleSubmit, handleInputChange } = useForm(
     {
