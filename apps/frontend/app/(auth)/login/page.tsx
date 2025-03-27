@@ -7,8 +7,8 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { useApiMutation } from '@/lib/hooks/useApiMutation'
 import { useForm } from '@/lib/hooks/useForm'
 import { loginSchema } from '@/lib/zod/loginSchema'
-import { useState } from 'react'
 import { redirect } from 'next/navigation'
+import { useState } from 'react'
 
 export default function Page() {
   const loginRequest = useApiMutation('/auth/login')
@@ -20,6 +20,7 @@ export default function Page() {
     },
     loginSchema,
     (data) => {
+      setLoginError('')
       loginRequest.mutateAsync(
         { ...data },
         {
@@ -69,7 +70,7 @@ export default function Page() {
         <BtnPrimary type={'submit'} className="w-full">
           {loginRequest.isPending ? <LoadingSpinner is-small /> : <p>Login</p>}
         </BtnPrimary>
-        {loginError && (
+        {loginError && !loginRequest.isPending && (
           <div className="form-error !text-center !mt-4">{loginError}</div>
         )}
       </form>

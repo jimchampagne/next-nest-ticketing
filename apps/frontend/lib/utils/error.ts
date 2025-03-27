@@ -4,3 +4,10 @@ export class UnauthorizedError extends Error {
     this.name = 'UnauthorizedError'
   }
 }
+
+export class LoginError extends Error {
+  constructor(message = 'Login error') {
+    super(message)
+    this.name = 'LoginError'
+  }
+}

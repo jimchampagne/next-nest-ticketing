@@ -24,12 +24,7 @@ export const useApiMutation = <T>(
         queryClient.invalidateQueries({ queryKey: [key] }),
       )
     },
-    retry: (failureCount, error) => {
-      if (error instanceof UnauthorizedError) {
-        return false
-      }
-      return failureCount < 3
-    },
+    retry: false,
   })
 
   if (mutation.error instanceof UnauthorizedError) {
