@@ -1,3 +1,5 @@
+import { Request } from 'express'
+
 export class AuthRegisterDto {
   name: string
   email: string
@@ -13,7 +15,8 @@ export class AuthLoginDto {
 export class AuthJwtPayload {
   sub: number
   email: string
-  refreshToken: string
+  iat: number
+  exp: number
 }
 
 export interface AuthenticatedRequest extends Request {

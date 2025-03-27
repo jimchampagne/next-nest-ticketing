@@ -24,7 +24,10 @@ export function BoardCreateForm({ projectId }: Props) {
     },
     boardSchema,
     (data) => {
-      newBoard.mutate({ ...data, projectId }, { onSuccess: () => closeModal() })
+      newBoard.mutateAsync(
+        { ...data, projectId },
+        { onSuccess: () => closeModal() },
+      )
     },
   )
   return (

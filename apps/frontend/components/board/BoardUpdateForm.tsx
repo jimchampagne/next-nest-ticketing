@@ -28,7 +28,7 @@ export function BoardUpdateForm({ board }: Props) {
     },
     boardSchema,
     (data) => {
-      updateBoard.mutate({ ...data }, { onSuccess: () => closeModal() })
+      updateBoard.mutateAsync({ ...data }, { onSuccess: () => closeModal() })
     },
   )
   return (

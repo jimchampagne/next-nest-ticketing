@@ -23,7 +23,7 @@ export class AuthService {
   ) {}
 
   // REGISTERING A USER
-  async register(registerDto: Prisma.UserCreateInput): Promise<any> {
+  async register(registerDto: Prisma.UserCreateInput) {
     const userExists = await this.usersService.findByEmail(registerDto.email)
     if (userExists) {
       throw new BadRequestException('User already exists')
@@ -134,7 +134,8 @@ export class AuthService {
       refreshToken,
     )
 
-    if (!refreshTokenMatches) throw new ForbiddenException('Access Denied')
+    if (!refreshTokenMatches)
+      throw new ForbiddenException('Invalid refresh token')
     const tokens = await this.getTokens(user.id, user.email)
     await this.updateRefreshTokenInDatabase(user.id, tokens.refreshToken)
     return {

@@ -25,7 +25,7 @@ export function TicketUpdateForm({ ticket }: Props) {
   )
 
   function handleDelete() {
-    deleteTicket.mutate(
+    deleteTicket.mutateAsync(
       {},
       {
         onSuccess: () => closeModal(),
@@ -50,7 +50,7 @@ export function TicketUpdateForm({ ticket }: Props) {
     },
     ticketSchema,
     (data) => {
-      updateTicket.mutate({ ...data }, { onSuccess: () => closeModal() })
+      updateTicket.mutateAsync({ ...data }, { onSuccess: () => closeModal() })
     },
   )
   return (

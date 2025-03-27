@@ -29,7 +29,7 @@ export function BoardDeleteForm({ board }: Props) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    deleteBoard.mutate(
+    deleteBoard.mutateAsync(
       {},
       {
         onSuccess: () => closeModal(),

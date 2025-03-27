@@ -27,26 +27,16 @@ export class RefreshTokenStrategy extends PassportStrategy(
 
           const refreshToken = cookies.match(/refreshToken=([^;]+)/)
           if (refreshToken && refreshToken[1]) {
-            console.log('--------------------')
-            console.log('Extracted refresh token from cookie!')
-            console.log('--------------------')
             return refreshToken[1]
           }
           return null
         },
       ]),
       secretOrKey: secret,
-      passReqToCallback: true,
     })
   }
 
-  validate(req: Request, payload: AuthJwtPayload) {
-    const refreshToken = req.get('Authorization')?.replace('Bearer', '').trim()
-    if (!refreshToken) {
-      throw new Error(
-        'Refresh token not found in Authorization header or cookies',
-      )
-    }
-    return { ...payload, refreshToken }
+  validate(payload: AuthJwtPayload) {
+    return payload
   }
 }

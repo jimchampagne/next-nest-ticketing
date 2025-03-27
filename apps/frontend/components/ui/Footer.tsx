@@ -1,8 +1,8 @@
-export function Footer({
-  className,
-}: Readonly<{
+type Props = {
   className?: string
-}>) {
+}
+
+export function Footer({ className }: Props) {
   return (
     <div
       className={`${className} min-h-[48px] border-t-[2px] border-solid border-primary/20 flex flex-col sm:flex-row justify-center items-center p-4 gap-4 text-primary text-[12px]`}

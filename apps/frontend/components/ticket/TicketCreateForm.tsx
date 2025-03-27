@@ -27,7 +27,10 @@ export function TicketCreateForm({ boardId }: Props) {
     },
     ticketSchema,
     (data) => {
-      newTicket.mutate({ ...data, boardId }, { onSuccess: () => closeModal() })
+      newTicket.mutateAsync(
+        { ...data, boardId },
+        { onSuccess: () => closeModal() },
+      )
     },
   )
   return (
